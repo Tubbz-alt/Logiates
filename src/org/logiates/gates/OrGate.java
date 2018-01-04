@@ -16,7 +16,7 @@ public class OrGate extends LogicGate {
     public OrGate() {}
     
     @Override
-    protected int exec(int... values) {
+    protected int config(int... values) {
         int exec = 0;
         
         for (int i = 0; i < values.length; i++)

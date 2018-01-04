@@ -16,8 +16,8 @@ public class NorGate extends LogicGate {
     public NorGate() {}
 
     @Override
-    protected int exec(int... values) {
-        int res = new OrGate().exec(values);
+    protected int config(int... values) {
+        int res = new OrGate().config(values);
         return res == 0 ? 1 : 0;
     }
     

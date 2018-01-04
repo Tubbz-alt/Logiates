@@ -16,7 +16,7 @@ public class AndGate extends LogicGate {
     public AndGate() {}
 
     @Override
-    protected int exec(int... values) {
+    protected int config(int... values) {
         int res = 1;
         
         for (int i = 0; i < values.length; i++)

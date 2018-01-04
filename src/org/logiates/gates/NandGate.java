@@ -16,8 +16,8 @@ public class NandGate extends LogicGate {
     public NandGate() {}
     
     @Override
-    protected int exec(int... values) {
-        int res = new AndGate().exec(values);
+    protected int config(int... values) {
+        int res = new AndGate().config(values);
         return res == 0 ? 1 : 0;
     }
     
