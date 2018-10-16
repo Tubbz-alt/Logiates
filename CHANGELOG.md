@@ -6,3 +6,6 @@
 
 - 0.3
     - Project structure changed to Maven
+
+- 0.3.1
+    - Corrected problems with LogicGate builders

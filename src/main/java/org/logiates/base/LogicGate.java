@@ -34,6 +34,10 @@ public abstract class LogicGate implements LogicFunction {
         this.entriesCount = entriesCount;
     }
 
+    public LogicGate(int entriesCount) {
+        this(null, null, entriesCount);
+    }
+
     public abstract Number config(Number... values);
 
     public Number execute(Number... values){

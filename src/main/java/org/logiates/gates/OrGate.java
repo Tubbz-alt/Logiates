@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.logiates.gates;
 
 import org.logiates.base.LogicGate;
@@ -14,6 +9,18 @@ import org.logiates.base.LogicGate;
 public class OrGate extends LogicGate {
 
     public OrGate() {}
+
+    public OrGate(LogicGate prev, LogicGate next) {
+        super(prev, next);
+    }
+
+    public OrGate(LogicGate prev, LogicGate next, int entriesCount) {
+        super(prev, next, entriesCount);
+    }
+
+    public OrGate(int entriesCount) {
+        super(entriesCount);
+    }
 
     @Override
     public Number config(Number... values) {

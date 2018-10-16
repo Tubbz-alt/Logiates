@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.logiates.test;
 
 import org.logiates.base.LogicGate;
@@ -17,10 +12,10 @@ import org.logiates.gates.OrGate;
  */
 public class TestGates {
     public static void main(String[] args) {
-        AndGate and = new AndGate();
-        OrGate or = new OrGate();
-        NandGate nand = new NandGate();
-        NorGate nor = new NorGate();
+        AndGate and = new AndGate(3);
+        OrGate or = new OrGate(3);
+        NandGate nand = new NandGate(3);
+        NorGate nor = new NorGate(3);
         System.out.println("And: "+and.execute(1,1,0));
         System.out.println("Or: "+or.execute(1,1,0));
         System.out.println("Nand: "+nand.execute(1,1,0));
@@ -31,5 +26,5 @@ public class TestGates {
         System.out.println(nand.getSucessorCount());
         System.out.println(nand.getJoinedCount());
     }
-    
+
 }
