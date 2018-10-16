@@ -11,14 +11,14 @@ import org.logiates.base.LogicGate;
  *
  * @author martin
  */
-public class NandGate extends LogicGate {
+public class NorGate extends LogicGate {
 
-    public NandGate() {}
-    
+    public NorGate() {}
+
     @Override
-    protected int config(int... values) {
-        int res = new AndGate().config(values);
+    public Number config(Number... values) {
+        int res = new OrGate().config(values).intValue();
         return res == 0 ? 1 : 0;
     }
-    
+
 }

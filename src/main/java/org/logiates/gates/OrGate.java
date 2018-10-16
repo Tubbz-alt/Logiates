@@ -11,17 +11,17 @@ import org.logiates.base.LogicGate;
  *
  * @author martin
  */
-public class AndGate extends LogicGate {
+public class OrGate extends LogicGate {
 
-    public AndGate() {}
+    public OrGate() {}
 
     @Override
-    protected int config(int... values) {
-        int res = 1;
-        
+    public Number config(Number... values) {
+        int exec = 0;
+
         for (int i = 0; i < values.length; i++)
-            res &= values[i];
-        return res;
+            exec |= values[i].intValue();
+        return exec;
     }
-    
+
 }

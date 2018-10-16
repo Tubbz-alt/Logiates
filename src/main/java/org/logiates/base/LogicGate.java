@@ -11,88 +11,102 @@ import java.util.LinkedList;
  *
  * @author martin
  */
-public abstract class LogicGate {
-    
-    //private LinkedList<LogicGate> listGates;
+public abstract class LogicGate implements LogicFunction {
+
     private LogicGate prev;
     private LogicGate next;
-    
+
+    private final int entriesCount;
+
     public LogicGate() {
-        //listGates = new LinkedList<>();
         this(null, null);
     }
-    
+
     public LogicGate(LogicGate prev, LogicGate next) {
+        this(prev, next, 1);
+    }
+
+    public LogicGate(LogicGate prev, LogicGate next, int entriesCount) {
         this.prev = prev;
         this.next = next;
+        if (entriesCount < 0)
+            throw new IndexOutOfBoundsException("Entry count must be zero or higher");
+        this.entriesCount = entriesCount;
     }
-    
-    protected abstract int config(int... values);
-    
-    public int execute(int... values){
-        int exec = config(values);
-        if (next != null)
-            exec = next.execute(values);
-//        for (LogicGate gate : listGates) {
-//            exec = gate.config(exec);
-//        }
-        return exec;
+
+    public abstract Number config(Number... values);
+
+    public Number execute(Number... values){
+        Number exec;
+        if (values != null) {
+            if (values.length > entriesCount)
+                throw new IndexOutOfBoundsException("The entries count is higher " +
+                        "than supported entries: "+values.length);
+            exec = config(values);
+            if (next != null)
+                exec = next.execute(values);
+            return exec;
+        }
+        else if (entriesCount > 0)
+            throw new NullPointerException("Entries null");
+        else {
+            exec = 0;
+            if (next != null)
+                exec = next.execute(values);
+            return exec;
+        }
     }
-    
+
     public boolean isAlone(){
         //return listGates.isEmpty();
         return prev == next && next == null;
     }
 
-//    public int getJoinedGatesCount(){
-//        return listGates.size();
-//    }
-    
     public boolean isFirst(){
         return !isAlone() && prev == null;
     }
-    
+
     public boolean isLast(){
         return !isAlone() && next == null;
     }
-    
+
     public int getPredecessorCount(){
         int count = 0;
         if (prev != null) {
             LogicGate p = prev;
-            while (p != null) {                
+            while (p != null) {
                 count++;
                 p = p.prev;
             }
         }
         return count;
     }
-    
+
     public int getSucessorCount(){
         int count = 0;
         if (next != null) {
             LogicGate n = next;
-            while (n != null) {                
+            while (n != null) {
                 count++;
                 n = n.next;
             }
         }
         return count;
     }
-    
+
     public int getJoinedCount(){
         return getPredecessorCount()+getSucessorCount();
     }
-    
+
     public LinkedList<LogicGate> getJoinesGates() {
         LinkedList<LogicGate> listJoinedGates = new LinkedList<>();
-        
+
         if (!isAlone()) {
             LogicGate aux = prev;
-            while (aux != null) {                
+            while (aux != null) {
                 listJoinedGates.addFirst(aux);
                 aux = aux.prev;
-                // El segundo while podria hacerse dentro pero queda 
+                // El segundo while podria hacerse dentro pero queda
             }
             aux = next;
             while (aux != null) {
@@ -108,8 +122,9 @@ public abstract class LogicGate {
             prev = gate;
             gate.next = this;
         }
+        return gate;
     }
-    
+
     public LogicGate joinGate(LogicGate gate){
         if (gate != null) {
             //listGates.add(gate);
@@ -118,7 +133,7 @@ public abstract class LogicGate {
         }
         return gate;
     }
-    
+
     public boolean disjoinGates(){
         //listGates.clear();
         if (isAlone())
@@ -128,6 +143,26 @@ public abstract class LogicGate {
         if (next != null)
             next.prev = prev;
         return true;
+    }
+
+    public LogicGate getPrev() {
+        return prev;
+    }
+
+    public void setPrev(LogicGate prev) {
+        this.prev = prev;
+    }
+
+    public LogicGate getNext() {
+        return next;
+    }
+
+    public void setNext(LogicGate next) {
+        this.next = next;
+    }
+
+    public int getEntriesCount() {
+        return entriesCount;
     }
 
     @Override
